@@ -25,6 +25,7 @@ class App extends React.Component {
           <Navbar />
           {/* <PostsList posts={posts} /> */}
           <ul>
+            {/* here we are providing link tag as link will restrict reloading like a tag */}
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -35,7 +36,7 @@ class App extends React.Component {
               <Link to="/signup">Signup</Link>
             </li>
           </ul>
-
+          {/* here we are making exact path mathc for avoiding the incorrect issue */}
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
