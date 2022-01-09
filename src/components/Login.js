@@ -4,14 +4,35 @@ import React, { Component } from 'react';
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.emailInputRef = React.createRef(); //
-    this.passwordInputRef = React.createRef();
+    // this.emailInputRef = React.createRef(); //
+    // this.passwordInputRef = React.createRef();
+    /********conveting to control component */
+    this.state = {
+      email: '',
+      password: '',
+    };
   }
+  // controlled way
+  hadleEmailChange = (e) => {
+    console.log(e.target.value);
+    this.setState({
+      email: e.target.value,
+    });
+  };
+  // controlled way
+  hadlePasswordChange = (e) => {
+    console.log(e.target.value);
+    this.setState({
+      password: e.target.value,
+    });
+  };
+
   // here we are handling the submit action
   handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('this.emailInputref', this.emailInputRef);
-    console.log('this.passwordInputRef', this.passwordInputRef);
+    // console.log('this.emailInputref', this.emailInputRef);
+    // console.log('this.passwordInputRef', this.passwordInputRef);
+    console.log('this . state is', this.state);
   };
   render() {
     return (
@@ -21,13 +42,20 @@ class Login extends Component {
           <input
             type="email"
             placeholder="Email"
-            ref={this.emailInputRef}
+            // for un controlled way
+            // ref={this.emailInputRef}
             required
+            // for controlled
+            onChange={this.hadleEmailChange}
+            value={this.state.email}
+            // for controlled
           />
         </div>
         <div className="field">
           <input
-            ref={this.passwordInputRef}
+            //  ref={this.passwordInputRef} // here we are using the password change using uncontrolled way
+            onChange={this.hadlePasswordChange} // this is wasy by which we are handling the email and password dtn th econtrolled way
+            value={this.state.password}
             type="password"
             placeholder="password"
             required
