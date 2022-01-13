@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { login } from '../actions/auth';
+import { connect } from 'react-redux';
 // here in this login component we lare using un controllerd component method to login into te form
 // and in the uncontrolled we have to create the referennce to to pass thevalues
 class Login extends Component {
@@ -33,11 +35,21 @@ class Login extends Component {
     // console.log('this.emailInputref', this.emailInputRef);
     // console.log('this.passwordInputRef', this.passwordInputRef);
     console.log('this . state is', this.state);
+    // handling the input comming form teh data
+    const { email, password } = this.state;
+    // we only dispatch action only if we have email and password
+    if (email && password) {
+      // here we are dispatching teh action
+      // here we don't have connection of login to store there fore we have to made a connection to store and can be done using store
+      this.props.dispatch(login(email, password));
+    }
   };
   render() {
+    const { error, inProgress } = this.props.auth;
     return (
       <form className="login-form">
         <span className="login-signup-header">Log In</span>
+        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <input
             type="email"
@@ -62,11 +74,26 @@ class Login extends Component {
           />
         </div>
         <div className="field">
-          <button onClick={this.handleFormSubmit}>Log In</button>
+          {inProgress ? (
+            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+              Logging In...
+            </button>
+          ) : (
+            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+              Log In
+            </button>
+          )}
         </div>
       </form>
     );
   }
 }
-
-export default Login;
+// creating using connect function
+function mapStateToProps(state) {
+  // here we are mapping the state to props
+  return {
+    // here we are returning the auth state
+    auth: state.auth,
+  };
+}
+export default connect(mapStateToProps)(Login);
