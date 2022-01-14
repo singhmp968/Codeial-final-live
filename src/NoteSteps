@@ -1,0 +1,5 @@
+//Login page instruction
+1. define the actiontype i.e for login define all the action type for login
+likexport const LOGIN_START = 'LOGIN_START'; 
+2. go to reducer write the reduces and in the auth.js write the 
+define the reducer here using action type and other imp concepts refer

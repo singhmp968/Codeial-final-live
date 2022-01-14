@@ -1,7 +1,11 @@
+// writing the reducer is the 2nd step after defining the actions
 import {
   LOGIN_FAILED,
   LOGIN_START,
   LOGIN_SUCCESS,
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILED,
 } from '../actions/actionTypes';
 
 const initialAuthState = {
@@ -13,11 +17,13 @@ const initialAuthState = {
 export default function auth(state = initialAuthState, action) {
   switch (action.type) {
     case LOGIN_START: // COMMING FROM ACTIONS
+    case LOGIN_START:
       return {
         ...state,
         inProgress: true,
       };
     case LOGIN_SUCCESS: // COMMING FROM ACTIONS
+    case SIGNUP_SUCCESS: // we case also do like this
       return {
         ...state,
         user: action.user,
@@ -27,12 +33,19 @@ export default function auth(state = initialAuthState, action) {
       };
 
     case LOGIN_FAILED: // COMMING FROM ACTIONS
+    case SIGNUP_FAILED:
       return {
         ...state,
         inProgress: false,
         error: action.error,
       };
-
+    /*can also be done like this
+      case SIGNUP_START:
+        return{
+          ...state,
+          inProgress
+        }
+        */
     default:
       return state;
   }
