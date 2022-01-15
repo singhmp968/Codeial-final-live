@@ -4,7 +4,8 @@
 //3. in the input tag  <input placeholder="Name" type="text" placeholder="Name" required onChange={this.handleNameChange} value={this.state.name}          //ref={this.name}/>
 //4.here in the above we have add addChnge and value in the input tag
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { startSingup, signup } from '../actions/auth';
 class Signup extends Component {
   // implementation using comtroll comp
   constructor(props) {
@@ -41,18 +42,26 @@ this.password = React.createRef();*/
       cnfPass: e.target.value,
     });
   };
-  handleFormSubmit = (e) => {
+  onFormSubmit = (e) => {
     e.preventDefault(); /*
 console.log('name', this.name);
 console.log('email', this.email);
 console.log('confirm password', this.confirmPassword);
 console.log('password', this.password);*/
+    const { email, password, cnfPass, name } = this.state;
+    // we only have to dispatch acton only when we have email name password and cnf password
+    if (email && password && cnfPass && name) {
+      this.props.dispatch(startSingup());
+      this.props.dispatch(signup(email, password, cnfPass, name));
+    }
     console.log(this.state);
   };
   render() {
+    const { inProgress, error } = this.props.auth;
     return (
       <form className="login-form">
-        <span className="login-signup-header"></span>
+        <span className="login-signup-header">Signup</span>
+        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <input
             placeholder="Name"
@@ -94,11 +103,16 @@ console.log('password', this.password);*/
           />
         </div>
         <div className="field">
-          <button onClick={this.handleFormSubmit}> Signup </button>
+          <button onClick={this.onFormSubmit} disabled={inProgress}>
+            Signup
+          </button>
         </div>
       </form>
     );
   }
 }
+const mapStateToProps = ({ auth }) => ({
+  auth,
+});
 
-export default Signup;
+export default connect(mapStateToProps)(Signup);
