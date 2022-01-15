@@ -6,6 +6,8 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  AUTHENTICATE_USER,
+  LOG_OUT,
 } from './actionTypes';
 import { getFormBody } from '../helpers/utils';
 export function startLogin() {
@@ -54,6 +56,23 @@ export function login(email, password) {
       });
   };
 }
+
+// HABDLING USERS
+
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user,
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOG_OUT,
+  };
+}
+//
+
 export function signup(email, password, confPassword, name) {
   return (dispatch) => {
     const url = APIUrls.sugnup();

@@ -6,12 +6,14 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  AUTHENTICATE_USER,
+  LOG_OUT,
 } from '../actions/actionTypes';
 
 const initialAuthState = {
   user: {}, // user  when we wwill get success as the response
   error: null, //error that server will give to us
-  isLogged: false, // weather the user is logged or not
+  isLoggedin: false, // weather the user is logged or not
   inProgress: false, // whean we press the loggin button that time we will start checking and make disable and enable the button
 };
 export default function auth(state = initialAuthState, action) {
@@ -27,7 +29,7 @@ export default function auth(state = initialAuthState, action) {
       return {
         ...state,
         user: action.user,
-        isLogged: true,
+        isLoggedin: true,
         inProgress: false,
         error: null,
       };
@@ -46,6 +48,19 @@ export default function auth(state = initialAuthState, action) {
           inProgress
         }
         */
+    case AUTHENTICATE_USER:
+      return {
+        ...state,
+        user: action.user,
+        isLoggedin: true,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        user: {},
+        isLoggedin: false,
+      };
+
     default:
       return state;
   }
