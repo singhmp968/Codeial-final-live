@@ -5,7 +5,8 @@
 //4.here in the above we have add addChnge and value in the input tag
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startSingup, signup } from '../actions/auth';
+import { startSingup, signup, clearAuthState } from '../actions/auth';
+import { Redirect } from 'react-router-dom';
 class Signup extends Component {
   // implementation using comtroll comp
   constructor(props) {
@@ -21,6 +22,10 @@ this.password = React.createRef();*/
       cnfPass: '',
       password: '',
     };
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
   }
   handleNameChange = (e) => {
     this.setState({
@@ -57,7 +62,10 @@ console.log('password', this.password);*/
     console.log(this.state);
   };
   render() {
-    const { inProgress, error } = this.props.auth;
+    const { inProgress, error, isLoggedin } = this.props.auth;
+    if (isLoggedin) {
+      return <Redirect to="/" />;
+    }
     return (
       <form className="login-form">
         <span className="login-signup-header">Signup</span>

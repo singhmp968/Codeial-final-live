@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { login } from '../actions/auth';
+import { clearAuthState, login } from '../actions/auth';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 // here in this login component we lare using un controllerd component method to login into te form
 // and in the uncontrolled we have to create the referennce to to pass thevalues
 class Login extends Component {
@@ -14,6 +15,11 @@ class Login extends Component {
       password: '',
     };
   }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
+  }
+
   // controlled way
   hadleEmailChange = (e) => {
     console.log(e.target.value);
@@ -44,8 +50,12 @@ class Login extends Component {
       this.props.dispatch(login(email, password));
     }
   };
+
   render() {
-    const { error, inProgress } = this.props.auth;
+    const { error, inProgress, isLoggedin } = this.props.auth;
+    if (isLoggedin) {
+      return <Redirect to="/" />;
+    }
     return (
       <form className="login-form">
         <span className="login-signup-header">Log In</span>
