@@ -15,3 +15,10 @@ export const LOG_OUT = 'LOG_OUT';
 export const CLEAR_AUTH_STATE = 'CLEAR_AUTH_STATE';
 export const EDIT_USER_SUCCESSFUL = 'EDIT_USER_SUCCESSFUL';
 export const EDIT_USER_FAILED = 'EDIT_USER_FAILED';
+
+export const USER_PROFILE_SUCCESS = 'USER_PROFILE_SUCCESS'; // this is the action  that will be dispatch when we will be fetching the user profile and te request is success ful
+export const USER_PROFILE_FAILURE = 'USER_PROFILE_FAILURE'; // this is the action  that will be dispatch when we will be fetching the user profile and te request is failed
+export const FETCH_USER_PROFILE = 'FETCH_USER_PROFILE';
+
+// for adding freind
+export const FETCH_FRIENDS_SUCCESS = 'FETCH_FRIENDS_SUCCESS';

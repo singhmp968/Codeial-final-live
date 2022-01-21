@@ -10,4 +10,7 @@ export const APIUrls = {
   ) =>
     // this will return this url and when we called this function in thr post
     `${API_ROOT}/posts?page=${page}&limit=${limit}`,
+  userProfile: (userId) => `${API_ROOT}/users/${userId}`,
+  // for friend list
+  userFriends: () => `${API_ROOT}/friendship/fetch_user_friends`,
 };
