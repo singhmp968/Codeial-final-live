@@ -2,10 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { CreatePost } from './';
+import { addLike } from '../actions/posts';
+import posts from '../reducers/posts';
+import { connect } from 'react-redux';
+//sfdsfsdfsd
 
 class PostsList extends Component {
+  handlePostLike = () => {
+    const { posts, user } = this.props;
+    console.log('dsadsd=>', posts);
+    this.props.dispatch(addLike(posts._id, 'Post', user._id));
+  };
   render() {
-    const { posts } = this.props;
+    const { posts, user } = this.props;
+    // console.log('postss=>', posts);
+    console.log('user=>', this.props);
+
+    // const isPostLikedByUser = posts.likes.includes(user._id);
     return (
       <div className="posts-list">
         <CreatePost />
@@ -27,13 +40,28 @@ class PostsList extends Component {
               <div className="post-content">{post.content}</div>
 
               <div className="post-actions">
-                <div className="post-like">
+                <button
+                  className="post-like no-btn"
+                  onClick={this.handlePostLike}
+                >
                   <img
-                    src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
                     alt="likes-icon"
                   />
+                  {/* {isPostLikedByUser ? (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
+                      alt="likes-icon"
+                    />
+                  ) : (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/1076/1076984.png"
+                      alt="likes-icon"
+                    />
+                  )} */}
                   <span>{post.likes.length}</span>
-                </div>
+                </button>
+                {/* </div> */}
 
                 <div className="post-comments-icon">
                   <img
@@ -69,5 +97,11 @@ class PostsList extends Component {
 PostsList.propTypes = {
   posts: PropTypes.array.isRequired,
 };
+// need to do in the post for now doing here but need to replace
+function mapStateToProps({ auth }) {
+  return {
+    user: auth.user,
+  };
+}
 
-export default PostsList;
+export default connect(mapStateToProps)(PostsList);

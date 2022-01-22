@@ -51,7 +51,7 @@ export function createPost(content) {
 //TODO:Need to implement comments
 export function addLike(id, likeType, userId) {
   return (dispatch) => {
-    const url = APIUrls.toggleLike();
+    const url = APIUrls.toggleLike(id, likeType);
     fetch(url, {
       method: 'POST',
       headers: {
