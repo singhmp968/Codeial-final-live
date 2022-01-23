@@ -8,6 +8,7 @@ import Signup from './Signup';
 import Settings from './Settings';
 import UserProfile from './UserProfile';
 import CreatePost from './CreatePost';
+import Chat from './Chat';
 export {
   PostsList,
   App,
@@ -19,4 +20,5 @@ export {
   Settings,
   UserProfile,
   CreatePost,
+  Chat,
 };

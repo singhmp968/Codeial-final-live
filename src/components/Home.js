@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { PostsList } from './';
+import { PostsList, Chat } from './';
+// import Chat from './Chat';
 import FriendsList from './FriendsList';
 
 class Home extends Component {
@@ -12,6 +13,7 @@ class Home extends Component {
         <PostsList posts={posts} />
         {/* TODO need to correct this one */}
         {isLoggedin && <FriendsList friends={friends} />}
+        {isLoggedin && <Chat />}
       </div>
     );
   }
